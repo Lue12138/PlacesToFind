@@ -12,6 +12,21 @@ const app = express();
 // this middleware parse the data body, here we parse for json data
 app.use(bodyParser.json());
 
+// We're trying to send the request from localhost 3000 to localhost 5000. It's going to cause an CORS error in 
+// our browser. CORS is a browser security concept: the server has to attach certain headers to the responses 
+// it sends back to the client(frontend), in order to allow the client to access the resources. And then 
+// the browser automatically detects the headers and says, OK, it's fine, you may access this.
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+  );
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE');
+
+  next();
+});
+
 // app.use() registers a middleware, but it does not execute it right away
 // the middleware will be executed when a request reaches it
 // here the path filter is 'api/places' now express.js only forward request to 
@@ -41,7 +56,7 @@ app.use((error, req, res, next) => {
 });
 
 mongoose
-  .connect('mongodb+srv://luxiaoh1:lxh201028@cluster0.gd9be.mongodb.net/places?retryWrites=true&w=majority')
+  .connect('mongodb+srv://luxiaoh1:lxh201028@cluster0.gd9be.mongodb.net/mern?retryWrites=true&w=majority')
   .then(() => {
     // if the mongo connection is successful, start our server
     app.listen(5000);
