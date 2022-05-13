@@ -65,6 +65,8 @@ const Auth = () => {
   const authSubmitHandler = async event => {
     event.preventDefault();
 
+    console.log(formState.inputs);
+
     if (isLoginMode) {
       try {
         const responseData = await sendRequest(
@@ -119,7 +121,7 @@ const Auth = () => {
               onInput={inputHandler}
             />
           )}
-          {!isLoginMode && <ImageUpload center id="image" />}
+          {!isLoginMode && <ImageUpload center id="image" onInput={inputHandler} />}
           <Input
             element="input"
             id="email"
