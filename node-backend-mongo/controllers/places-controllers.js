@@ -71,7 +71,6 @@ const createPlace = async (req, res, next) => {
   // validate request body first
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    console.log(errors);
     return next(
       new HttpError("Invalid Inputs passed, please check your data", 422)
     );
@@ -141,7 +140,6 @@ const updatePlace = async (req, res, next) => {
   // validate request body first
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    console.log(errors);
     return next(HttpError("Invalid Inputs passed, please check your data", 422));
   }
 

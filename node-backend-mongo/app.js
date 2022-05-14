@@ -65,7 +65,7 @@ app.use((error, req, res, next) => {
     return next(error);
   }
   // 500 means internal server error in default
-  res.status(error.code || 500)
+  res.status(error.code || 500);
   res.json({message: error.message || 'An unknown error occurred!'});
 });
 

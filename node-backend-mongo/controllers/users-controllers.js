@@ -53,7 +53,7 @@ const signup = async (req, res, next) => {
     // we add http://localhost:5000/ in the frontend(UserItem)
     image: req.file.path,
     password,
-    places: []
+    places: [],
   });
 
   try {

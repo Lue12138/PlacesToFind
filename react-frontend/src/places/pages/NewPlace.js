@@ -22,15 +22,15 @@ const NewPlace = () => {
     {
       title: {
         value: "",
-        isValid: false,
+        isValid: false
       },
       description: {
         value: "",
-        isValid: false,
+        isValid: false
       },
       address: {
         value: "",
-        isValid: false,
+        isValid: false
       },
       image: {
         value: null,

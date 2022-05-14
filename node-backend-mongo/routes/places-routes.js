@@ -20,6 +20,7 @@ router.get("/user/:uid", placesControllers.getPlacesByUserId);
 // multiple middleware here, check is validator for request body
 router.post(
   "/",
+  fileUpload.single('image'),
   [
     check("title").not().isEmpty(),
     check("description").isLength({ min: 5 }),
