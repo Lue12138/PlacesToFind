@@ -1,3 +1,6 @@
+const fs = require('fs');
+const path = require('path');
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -11,6 +14,9 @@ const app = express();
 
 // this middleware parse the data body, here we parse for json data
 app.use(bodyParser.json());
+
+// a special middleware
+app.use('/uploads/images', express.static(path.join('uploads', 'images')));
 
 // We're trying to send the request from localhost 3000 to localhost 5000. It's going to cause an CORS error in 
 // our browser. CORS is a browser security concept: the server has to attach certain headers to the responses 
@@ -45,6 +51,14 @@ app.use((req,res,next)=> {
 // a special middleware function! an error handling function!
 // this middleware will only be executed if an error is thrown in front of it
 app.use((error, req, res, next) => {
+  // We can check if we do have a file if an error occurs. And if we do, we want to roll back 
+  // because we had an error. We certainly don't want to keep it.
+  if (req.file) {
+    // delete that file
+    fs.unlink(req.file.path, err => {
+      console.log(err);
+    });
+  }
   // check if the error response has been sent
   if (res.headerSent) {
     // has been sent so we're good!

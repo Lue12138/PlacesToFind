@@ -14,6 +14,7 @@ const ImageUpload = props => {
     if (!file) {
       return;
     }
+    // we initalize FileReader here. FileReader is a built in API in browser hwich helps parse a file
     const fileReader = new FileReader();
     fileReader.onload = () => {
       setPreviewUrl(fileReader.result);
@@ -25,6 +26,7 @@ const ImageUpload = props => {
     let pickedFile;
     let fileIsValid = isValid;
     if (event.target.files && event.target.files.length === 1) {
+      // extract the file here, if no file pickedFile holds nothing
       pickedFile = event.target.files[0];
       setFile(pickedFile);
       setIsValid(true);

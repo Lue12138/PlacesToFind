@@ -4,6 +4,7 @@ const express = require("express");
 const { check } = require("express-validator");
 
 const placesControllers = require("../controllers/places-controllers");
+const fileUpload = require('../middleware/file-upload');
 
 // this is a special object on which we can also register middleware
 // filttered by http method and path
