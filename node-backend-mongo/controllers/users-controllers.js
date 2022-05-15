@@ -78,7 +78,30 @@ const signup = async (req, res, next) => {
     return next(error);
   }
 
-  res.status(201).json({ user: createdUser.toObject({ getters: true }) });
+  
+  // A token is a highly secure format used to transmit sensitive information 
+  // between two parties in a compact and self-contained manner. Tokens are 
+  // often used to strengthen authentication processes, whether that be within 
+  // a website or application.
+  let token;
+  try {
+    // first argument is (kinda) the data you wanna encdoded in the token
+    // second argument is the privte key, serverside only, never share it with any client
+    // third argument is optional
+    token = jwt.sign(
+      { userId: createdUser.id, email: createdUser.email },
+      'supersecret_dont_share',
+      { expiresIn: '1h' }
+    );
+  } catch (err) {
+    const error = new HttpError(
+      'Signing up failed, please try again later.',
+      500
+    );
+    return next(error);
+  }
+
+  res.status(201).json({ userId: createdUser.id, email: createdUser.email, token: token });
 };
 
 const login = async (req, res, next) => {
@@ -115,7 +138,30 @@ const login = async (req, res, next) => {
     return next(error);
   }
 
-  res.json({ message: "Logged in!", user: existingUser.toObject({ getters: true })});
+  let token;
+  try {
+    // here we need to make sure we use the same private key to generate token
+    // If we use a different one, we will generate different tokens. And therefore, 
+    // when the user/client later sends a token with a request, we wouldn't 
+    // be able to validate them correctly on the server.
+    token = jwt.sign(
+      { userId: existingUser.id, email: existingUser.email },
+      'supersecret_dont_share',
+      { expiresIn: '1h' }
+    );
+  } catch (err) {
+    const error = new HttpError(
+      'Logging in failed, please try again later.',
+      500
+    );
+    return next(error);
+  }
+
+  res.json({
+    userId: existingUser.id,
+    email: existingUser.email,
+    token: token
+  });
 };
 
 exports.getUsers = getUsers;
