@@ -5,6 +5,7 @@ const { check } = require("express-validator");
 
 const placesControllers = require("../controllers/places-controllers");
 const fileUpload = require('../middleware/file-upload');
+const checkAuth = require('../middleware/check-auth');
 
 // this is a special object on which we can also register middleware
 // filttered by http method and path
@@ -16,6 +17,12 @@ router.get("/:pid", placesControllers.getPlaceById);
 
 // order here matters! note that user could be recognized as a pid!
 router.get("/user/:uid", placesControllers.getPlacesByUserId);
+
+// here we want to ensure that no unauthenticated users can post patch delete
+// ie. here we check the token. this middleware here checks an incoming request for a valid token.
+// And if the token is invalid, it will send back a response and it will block 
+// the request from continuing its journey to the other routes.
+router.use(checkAuth);
 
 // multiple middleware here, check is validator for request body
 router.post(
