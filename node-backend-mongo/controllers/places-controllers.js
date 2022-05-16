@@ -78,7 +78,7 @@ const createPlace = async (req, res, next) => {
 
   // get the request body, below is just shortcut for multiple
   // const title = req.body.title;
-  const { title, description, address, creator } = req.body;
+  const { title, description, address } = req.body;
 
   let coordinates;
   try {
@@ -94,7 +94,7 @@ const createPlace = async (req, res, next) => {
     address,
     location: coordinates,
     image: req.file.path,
-    creator
+    creator: req.userData.userId
   });
 
 
@@ -103,7 +103,7 @@ const createPlace = async (req, res, next) => {
   // we want to check if the userid we want to insert here is already exists
   let user;
   try {
-    user = await User.findById(creator);
+    user = await User.findById(req.userData.userId);
   } catch (err) {
     const error = new HttpError('Creating place failed, please try again', 500);
     return next(error);
