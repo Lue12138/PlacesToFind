@@ -15,6 +15,7 @@ import { useForm } from "../../shared/hooks/form-hook";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import { AuthContext } from "../../shared/context/auth-context";
 import "./Auth.css";
+import { API_URL } from "../../utils/apiConfig";
 
 const Auth = () => {
   // Context allows us to pass data between any
@@ -73,7 +74,7 @@ const Auth = () => {
     if (isLoginMode) {
       try {
         const responseData = await sendRequest(
-          "http://localhost:8000/api/users/login",
+          `${API_URL}/api/users/login`,
           "POST",
           JSON.stringify({
             email: formState.inputs.email.value,
@@ -97,7 +98,7 @@ const Auth = () => {
         formData.append("image", formState.inputs.image.value);
 
         const responseData = await sendRequest(
-          "http://localhost:8000/api/users/signup",
+          `${API_URL}/api/users/signup`,
           "POST",
           formData
         );

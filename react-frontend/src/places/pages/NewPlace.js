@@ -14,6 +14,7 @@ import { useForm } from "../../shared/hooks/form-hook";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import { AuthContext } from "../../shared/context/auth-context";
 import "./PlaceForm.css";
+import { API_URL } from "../../utils/apiConfig";
 
 const NewPlace = () => {
   const auth = useContext(AuthContext);
@@ -51,7 +52,7 @@ const NewPlace = () => {
       formData.append('description', formState.inputs.description.value);
       formData.append('address', formState.inputs.address.value);
       formData.append('image', formState.inputs.image.value);
-      await sendRequest('http://localhost:8000/api/places', 'POST', formData, {
+      await sendRequest(`${API_URL}/api/places`, 'POST', formData, {
         Authorization: 'Bearer ' + auth.token});
       history.push('/');
     } catch (err) {}

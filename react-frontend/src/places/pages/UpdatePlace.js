@@ -14,6 +14,7 @@ import { useForm } from '../../shared/hooks/form-hook';
 import { useHttpClient } from '../../shared/hooks/http-hook';
 import { AuthContext } from '../../shared/context/auth-context';
 import './PlaceForm.css';
+import { API_URL } from "../../utils/apiConfig";
 
 const UpdatePlace = () => {
   const auth = useContext(AuthContext);
@@ -40,7 +41,7 @@ const UpdatePlace = () => {
     const fetchPlace = async () => {
       try {
         const responseData = await sendRequest(
-          `http://localhost:8000/api/places/${placeId}`
+          `${API_URL}/api/places/${placeId}`
         );
         setLoadedPlace(responseData.place);
         setFormData(
@@ -66,7 +67,7 @@ const UpdatePlace = () => {
     event.preventDefault();
     try {
       await sendRequest(
-        `http://localhost:8000/api/places/${placeId}`,
+        `${API_URL}/api/places/${placeId}`,
         'PATCH',
         JSON.stringify({
           title: formState.inputs.title.value,

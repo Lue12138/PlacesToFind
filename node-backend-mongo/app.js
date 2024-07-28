@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 // a special middleware
 app.use('/uploads/images', express.static(path.join('uploads', 'images')));
 
-// We're trying to send the request from localhost 3000 to localhost 5000. It's going to cause an CORS error in 
+// We're trying to send the request from localhost 3000 to localhost 8000. It's going to cause an CORS error in 
 // our browser. CORS is a browser security concept: the server has to attach certain headers to the responses 
 // it sends back to the client(frontend), in order to allow the client to access the resources. And then 
 // the browser automatically detects the headers and says, OK, it's fine, you may access this.
