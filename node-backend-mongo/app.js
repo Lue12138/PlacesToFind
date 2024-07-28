@@ -70,10 +70,11 @@ app.use((error, req, res, next) => {
 });
 
 mongoose
-  .connect('mongodb+srv://luxiaoh1:lxh201028@cluster0.gd9be.mongodb.net/mern?retryWrites=true&w=majority')
+  // .connect('mongodb+srv://luxiaoh1:lxh201028@cluster0.gd9be.mongodb.net/mern?retryWrites=true&w=majority')
+  .connect('mongodb+srv://luxiaoh1:lxh201028@ptf-dev-cluster.obc8olz.mongodb.net/?retryWrites=true&w=majority&appName=PTF-dev-cluster')
   .then(() => {
     // if the mongo connection is successful, start our server
-    app.listen(5000);
+    app.listen(8000);
   })
   .catch(err => {
     console.log(err);

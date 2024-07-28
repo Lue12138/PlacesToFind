@@ -25,7 +25,12 @@ git clone https://github.com/Lue12138/PlacesToFind
 cd react-frontend && npm install
 cd node-backend-mongo && npm install
 ```
-3. Start the development server:
+3. Install mongodb:
+```
+npm install --save mongoose
+npm install mongodb@3.0
+```
+4. Start the development server:
 ```
 cd node-backend-mongo && npm start
 cd react-frontend && npm start

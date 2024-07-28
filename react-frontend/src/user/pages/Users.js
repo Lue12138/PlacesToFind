@@ -14,7 +14,7 @@ const Users = () => {
     const fetchUsers = async () => {
       try {
         const responseData = await sendRequest(
-          'http://localhost:5000/api/users'
+          'http://localhost:8000/api/users'
         );
 
         setLoadedUsers(responseData.users);
