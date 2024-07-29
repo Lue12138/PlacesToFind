@@ -10,6 +10,13 @@ const placesRoutes = require('./routes/places-routes');
 const usersRoutes = require('./routes/users-routes')
 const HttpError = require('./models/http-error');
 
+const test = require('dotenv').config({path:"../.env"})
+console.log(test)
+
+require('dotenv').config({path:"../.env"});
+console.log("hello here");
+console.log(process.env.REACT_APP_MONGO_URL);
+
 const app = express();
 
 // this middleware parse the data body, here we parse for json data
@@ -71,7 +78,8 @@ app.use((error, req, res, next) => {
 
 mongoose
   // .connect('mongodb+srv://luxiaoh1:lxh201028@cluster0.gd9be.mongodb.net/mern?retryWrites=true&w=majority')
-  .connect('mongodb+srv://luxiaoh1:lxh201028@ptf-dev-cluster.obc8olz.mongodb.net/?retryWrites=true&w=majority&appName=PTF-dev-cluster')
+  .connect(process.env.REACT_APP_MONGO_URL)
+  // .connect("mongodb+srv://luxiaoh1:lxh201028@ptf-dev-cluster.obc8olz.mongodb.net/?retryWrites=true&w=majority&appName=PTF-dev-cluster")
   .then(() => {
     // if the mongo connection is successful, start our server
     app.listen(8000);
